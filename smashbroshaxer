@@ -15,17 +15,29 @@ fi
 
 hax_my_smash () {
 
-	x-terminal-emulator -e /bin/bash -c \
-		"sudo ifconfig ${device} down && \
+	xterm -e /bin/bash -c \
+		"printf \">> Enter password to access WiFi device:
+
+\" && \
+		sudo ifconfig ${device} down && \
 		sudo iwconfig ${device} mode monitor && \
 		sudo ifconfig ${device} up && \
-		sudo iwconfig ${device} channel 6​ && \
+		sudo iwconfig ${device} channel 6 && \
 		yes | sudo ${AIREPLAY} \
 			--interactive \
 			-r ${replay} \
 			-h 59:ee:3f:2a:37:e0 \
 			-x 20 \
-			${device} ; \
+			${device}" ; \
+
+}
+
+reset_wifi () {
+
+	xterm -e /bin/bash -c \
+		"printf \">> Enter password to reset WiFi device:
+
+\" && \
 		sudo ifconfig ${device} down && \
 		sudo iwconfig ${device} mode managed && \
 		sudo ifconfig ${device} up"
@@ -63,7 +75,7 @@ interactive_mode () {
 		--separator=" " \
 		--field="		smashbroshaxer will send data to your 3DS in order for
 
-				»Super Smash Bros for 3DS«
+					»Super Smash Bros for 3DS«
 
 		to start the Homebrew Launcher. Game version up to 1.1.2 supported;
 		(if you got a newer version, (temporarily) uninstall the update data).:LBL" " " \
@@ -83,7 +95,8 @@ interactive_mode () {
 	replay=${basedir}/pcap/${array[1]}
 
 	case ${ret} in
-		0 )	hax_my_smash		;;
+		0 )	hax_my_smash
+			reset_wifi ;;
 
 		2 )	open_3ds_homebrew	;;
 
@@ -125,5 +138,6 @@ usage:
 		fi
 
 		hax_my_smash
+		reset_wifi
 	;;
 esac

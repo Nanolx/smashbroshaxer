@@ -8,6 +8,7 @@ Requirements:
 * Linux (x86/x86_64)
 * Gtk+ 3
 * sudo
+* xterm
 
 Usage (interactive mode):
 ================
@@ -32,6 +33,11 @@ ChangeLog:
 3.0 (20160724):
 * switch to channel 6 (should do stuff faster)
 * reset wifi interface after work is done (brings back interwebs)
+* display short info strings in terminal windows
+* use xterm instead of x-terminal-emulator
+** some terminals like Konsole need extra arguments (--nofork)
+** to properly work as desired, thus enforce xterm so that I
+** don't have fiddle around with that stuff
 * add new payloads:
 ** US 1.0.1
 ** EU-JAP 1.0.1
