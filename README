@@ -8,11 +8,17 @@ Requirements:
 * Gtk+ 3
 * sudo
 
-Usage:
+Usage (interactive mode):
 * run script
 * select wifi device
 * select game version
 * click 'hax my smash'
+* enter your password in terminal
+* in game go to Smash > Group
+* ... profit?
+
+Usage (non-interactive mode):
+* smashbroshaxer <wifi-device> <pcap-file>
 * enter your password in terminal
 * in game go to Smash > Group
 * ... profit?

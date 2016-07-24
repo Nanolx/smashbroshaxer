@@ -3,6 +3,9 @@
 basedir=$(readlink -m "${BASH_SOURCE[0]}")
 basedir=$(dirname ${basedir})
 
+reldate="2016/07/24"
+version="2.0"
+
 if [[ $(uname -m) == "x86_64" ]]; then
 	YAD=${basedir}/bin/yad.64
 	AIREPLAY=${basedir}/bin/aireplay-ng.64
@@ -10,70 +13,113 @@ else	YAD=${basedir}/bin/yad.32
 	AIREPLAY=${basedir}/bin/aireplay-ng.32
 fi
 
-wireless=""
-for device in /sys/class/net/*; do
-	[[ -e ${device}/wireless ]] && \
-		wireless+="$(basename ${device}),"
-done
+smash_my_hax () {
 
-pcaps=""
-for pcap in ${basedir}/pcap/*.pcap; do
-	pcaps+="$(basename ${pcap}),"
-done
-
-wireless="${wireless%"${wireless##*[!,]}"}"
-pcaps="${pcaps%"${pcaps##*[!,]}"}"
-
-array=($(${YAD} \
-	--title="smashbroshax Helper" \
-	--form \
-	--item-separator=, \
-	--separator=" " \
-	--field="		smashbroshax Helper will send data to your 3DS in order for
-
-				»Super Smash Bros for 3DS«
-
-		to start the Homebrew Launcher. Game version up to 1.1.2 supported;
-		(if you got a newer version, (temporarily) uninstall the update data).:LBL" " " \
-	--field="1. Select WiFi Device to use:CB" "${wireless}" \
-	--field="2. Select your Game version:CB" "${pcaps}" \
-	--field="
-3. Start game, click 'hax my smash', then to go Smash > Group
-:LBL" " "\
-	--button="! hax my smash:0" \
-	--button="x cancel:1" \
-	--button="? 3DS Homebrew:2" \
-	--button="? smashbroshax:3"))
-
-ret=$?
-
-device=${array[0]}
-replay=${array[1]}
-
-case ${ret} in
-
-	0 )
-		x-terminal-emulator -e /bin/bash -c \
+	x-terminal-emulator -e /bin/bash -c \
 		"sudo ifconfig ${device} down && \
 		sudo iwconfig ${device} mode monitor && \
 		sudo ifconfig ${device} up && \
 		yes | sudo ${AIREPLAY} \
 			--interactive \
-			-r ${basedir}/pcap/${replay} \
+			-r ${replay} \
 			-h 59:ee:3f:2a:37:e0 \
 			-x 20 \
 			${device}"
+
+}
+
+open_3ds_homebrew () {
+	xdg-open "https://smealum.github.io/3ds/"
+}
+
+open_smashbroshax () {
+	xdg-open "https://github.com/yellows8/3ds_smashbroshax"
+}
+
+interactive_mode () {
+
+	wireless=""
+	for device in /sys/class/net/*; do
+		[[ -e ${device}/wireless ]] && \
+			wireless+="$(basename ${device}),"
+	done
+
+	pcaps=""
+	for pcap in ${basedir}/pcap/*.pcap; do
+		pcaps+="$(basename ${pcap}),"
+	done
+
+	wireless="${wireless%"${wireless##*[!,]}"}"
+	pcaps="${pcaps%"${pcaps##*[!,]}"}"
+
+	array=($(${YAD} \
+		--title="smashbroshax Helper" \
+		--form \
+		--item-separator=, \
+		--separator=" " \
+		--field="		smashbroshax Helper will send data to your 3DS in order for
+
+					»Super Smash Bros for 3DS«
+
+			to start the Homebrew Launcher. Game version up to 1.1.2 supported;
+			(if you got a newer version, (temporarily) uninstall the update data).:LBL" " " \
+		--field="1. Select WiFi Device to use:CB" "${wireless}" \
+		--field="2. Select your Game version:CB" "${pcaps}" \
+		--field="
+	3. Start game, click 'hax my smash', then to go Smash > Group
+	:LBL" " "\
+		--button="! hax my smash:0" \
+		--button="x cancel:1" \
+		--button="? 3DS Homebrew:2" \
+		--button="? smashbroshax:3"))
+
+	ret=$?
+
+	device=${array[0]}
+	replay=${basedir}/pcap/${array[1]}
+
+	case ${ret} in
+		0 )	smash_my_hax		;;
+
+		2 )	open_3ds_homebrew	;;
+
+		3 )	open_smashbroshax	;;
+
+		1 )	echo -e "\n  cancelled by user \n"
+			exit 1
+		;;
+	esac
+
+}
+
+case ${1} in
+	--help )
+		echo -e "
+smashbroshaxer version ${version} (${reldate})
+
+usage:
+	smashbroshaxer			| interactive (UI) mode
+	smashbrosaxer <wifi> <pcap>	| non-interactive mode
+"
 	;;
 
-	2 )
-		xdg-open "https://smealum.github.io/3ds/"
+	"" )
+		interactive_mode
 	;;
 
-	3 )
-		xdg-open "https://github.com/yellows8/3ds_smashbroshax"
-	;;
+	* )
+		if [[ -e /sys/class/net/${1}/wireless ]]; then
+			device=${1}
+		else	echo -e "\nspecified device ${1} is not a wireless device!\n"
+			exit 1
+		fi
 
-	1 )
-		echo -e "\n  cancelled by user \n"
-		exit 1
+		if [[ -f ${2} ]]; then
+			replay=$(readlink -m ${2})
+		else	echo -e "\nspecified replay ${2} is not a pcap replay!\n"
+			exit 1
+		fi
+
+		smash_my_hax
+	;;
 esac
