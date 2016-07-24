@@ -13,22 +13,22 @@ fi
 wireless=""
 for device in /sys/class/net/*; do
 	[[ -e ${device}/wireless ]] && \
-		wireless+="$(basename ${device}) "
+		wireless+="$(basename ${device}),"
 done
 
 pcaps=""
 for pcap in ${basedir}/pcap/*.pcap; do
-	pcaps+="$(basename ${pcap}) "
+	pcaps+="$(basename ${pcap}),"
 done
 
-wireless="${wireless%"${wireless##*[![:space:]]}"}"
-pcaps="${pcaps%"${pcaps##*[![:space:]]}"}"
+wireless="${wireless%"${wireless##*[!,]}"}"
+pcaps="${pcaps%"${pcaps##*[!,]}"}"
 
 array=($(${YAD} \
 	--title="smashbroshax Helper" \
 	--form \
-	--item-separator=" " \
-	--separator=" " \
+	--item-separator=, \
+	--separator=, \
 	--field="smashbroshax Helper will send data to your 3DS in order for Super Smash Bros
 for 3DS to launch the Homebrew Launcher.
 
