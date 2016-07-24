@@ -28,7 +28,7 @@ array=($(${YAD} \
 	--title="smashbroshax Helper" \
 	--form \
 	--item-separator=, \
-	--separator=, \
+	--separator=" " \
 	--field="smashbroshax Helper will send data to your 3DS in order for Super Smash Bros
 for 3DS to launch the Homebrew Launcher.
 
