@@ -32,11 +32,13 @@ array=($(${YAD} \
 	--field="smashbroshax Helper will send data to your 3DS in order for Super Smash Bros
 for 3DS to launch the Homebrew Launcher.
 
-smashbroshax supports game versions up to 1.1.2 if you got a newer version,
-(temporarily uninstall the update data).:LBL" " " \
+smashbroshax supports game versions up to 1.1.2; if you got a newer version,
+(temporarily) uninstall the update data.
+:LBL" " " \
 	--field="1. Select WiFi Device to use:CB" "${wireless}" \
 	--field="2. Select your Game version:CB" "${pcaps}" \
-	--field="3. Start game, click 'hax my smash', then to go Smash > Group.:LBL" \
+	--field="
+3. Start game, click 'hax my smash', then to go Smash > Group.:LBL" \
 	--button="hax my smash" \
 	--button="cancel"))
 
