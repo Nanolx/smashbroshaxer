@@ -13,7 +13,7 @@ else	YAD=${basedir}/bin/yad.32
 	AIREPLAY=${basedir}/bin/aireplay-ng.32
 fi
 
-smash_my_hax () {
+hax_my_smash () {
 
 	x-terminal-emulator -e /bin/bash -c \
 		"sudo ifconfig ${device} down && \
@@ -79,7 +79,7 @@ interactive_mode () {
 	replay=${basedir}/pcap/${array[1]}
 
 	case ${ret} in
-		0 )	smash_my_hax		;;
+		0 )	hax_my_smash		;;
 
 		2 )	open_3ds_homebrew	;;
 
@@ -116,10 +116,10 @@ usage:
 
 		if [[ -f ${2} ]]; then
 			replay=$(readlink -m ${2})
-		else	echo -e "\nspecified replay ${2} is not a pcap replay!\n"
+		else	echo -e "\nspecified replay ${2} does not exist!\n"
 			exit 1
 		fi
 
-		smash_my_hax
+		hax_my_smash
 	;;
 esac
