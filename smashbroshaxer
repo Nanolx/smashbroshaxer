@@ -48,16 +48,16 @@ device=${array[0]}
 replay=${array[1]}
 
 if [[ ${ret} == 0 ]]; then
-	sudo ifconfig ${device} down
-	sudo iwconfig ${device} mode monitor
-	sudo ifconfig ${device} up
-
+	x-terminal-emulator -e /bin/bash -c \
+	"sudo ifconfig ${device} down && \
+	sudo iwconfig ${device} mode monitor && \
+	sudo ifconfig ${device} up && \
 	yes | sudo ${AIREPLAY} \
 		--interactive \
 		-r ${basedir}/pcap/${replay} \
 		-h 59:ee:3f:2a:37:e0 \
 		-x 20 \
-		${device}
+		${device}"
 else
 	echo -e "\n  cancelled by user \n"
 	exit 1
