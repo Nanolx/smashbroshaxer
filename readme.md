@@ -18,7 +18,7 @@ Usage (interactive mode):
 * ... profit?
 
 Usage (non-interactive mode):
-* smashbroshaxer <wifi-device> <pcap-file>
+* smashbroshaxer wifi-interface pcap-file
 * enter your password in terminal
 * in game go to Smash > Group
 * ... profit?
