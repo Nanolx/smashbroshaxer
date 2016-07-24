@@ -29,11 +29,12 @@ array=($(${YAD} \
 	--form \
 	--item-separator=, \
 	--separator=" " \
-	--field="smashbroshax Helper will send data to your 3DS in order for Super Smash Bros
-for 3DS to launch the Homebrew Launcher.
+	--field="smashbroshax Helper will send data to your 3DS in order for
 
-smashbroshax supports game versions up to 1.1.2; if you got a newer version,
-(temporarily) uninstall the update data.
+		»Super Smash Bros for 3DS«
+
+to start the Homebrew Launcher. Game version up to 1.1.2 supported;
+(if on a newer version, (temporarily) uninstall the update data).
 :LBL" " " \
 	--field="1. Select WiFi Device to use:CB" "${wireless}" \
 	--field="2. Select your Game version:CB" "${pcaps}" \
