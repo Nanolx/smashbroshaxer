@@ -30,7 +30,7 @@ hax_my_smash () {
 			-r ${replay} \
 			-h 59:ee:3f:2a:37:e0 \
 			-x 20 \
-			${device}" ; \
+			${device}"
 
 }
 
