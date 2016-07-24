@@ -1,0 +1,62 @@
+#!/bin/bash
+
+basedir=$(readlink -m "${BASH_SOURCE[0]}")
+basedir=$(dirname ${basedir})
+
+if [[ $(uname -m) == "x86_64" ]]; then
+	YAD=${basedir}/bin/yad.64
+	AIREPLAY=${basedir}/bin/aireplay-ng.64
+else	YAD=${basedir}/bin/yad.32
+	AIREPLAY=${basedir}/bin/aireplay-ng.32
+fi
+
+wireless=""
+for device in /sys/class/net/*; do
+	[[ -e ${device}/wireless ]] && \
+		wireless+="$(basename ${device}) "
+done
+
+pcaps=""
+for pcap in ${basedir}/pcap/*.pcap; do
+	pcaps+="$(basename ${pcap}) "
+done
+
+wireless="${wireless%"${wireless##*[![:space:]]}"}"
+pcaps="${pcaps%"${pcaps##*[![:space:]]}"}"
+
+array=($(${YAD} \
+	--title="smashbroshax Helper" \
+	--form \
+	--item-separator=" " \
+	--separator=" " \
+	--field="smashbroshax Helper will send data to your 3DS in order for Super Smash Bros
+for 3DS to launch the Homebrew Launcher.
+
+smashbroshax supports game versions up to 1.1.2 if you got a newer version,
+(temporarily uninstall the update data).:LBL" " " \
+	--field="1. Select WiFi Device to use:CB" "${wireless}" \
+	--field="2. Select your Game version:CB" "${pcaps}" \
+	--field="3. Start game, click 'hax my smash', then to go Smash > Group.:LBL" \
+	--button="hax my smash" \
+	--button="cancel"))
+
+ret=$?
+
+device=${array[0]}
+replay=${array[1]}
+
+if [[ ${ret} == 0 ]]; then
+	sudo ifconfig ${device} down
+	sudo iwconfig ${device} mode monitor
+	sudo ifconfig ${device} up
+
+	yes | sudo ${AIREPLAY} \
+		--interactive \
+		-r ${basedir}/pcap/${replay} \
+		-h 59:ee:3f:2a:37:e0 \
+		-x 20 \
+		${device}
+else
+	echo -e "\n  cancelled by user \n"
+	exit 1
+fi
