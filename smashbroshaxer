@@ -34,32 +34,47 @@ array=($(${YAD} \
 		»Super Smash Bros for 3DS«
 
 to start the Homebrew Launcher. Game version up to 1.1.2 supported;
-(if on a newer version, (temporarily) uninstall the update data).
+(if you got a newer version, (temporarily) uninstall the update data).
 :LBL" " " \
 	--field="1. Select WiFi Device to use:CB" "${wireless}" \
 	--field="2. Select your Game version:CB" "${pcaps}" \
 	--field="
-3. Start game, click 'hax my smash', then to go Smash > Group.:LBL" \
-	--button="hax my smash" \
-	--button="cancel"))
+3. Start game, click 'hax my smash', then to go Smash > Group.
+:LBL" \
+	--button="! hax my smash:0" \
+	--button="x cancel:1" \
+	--button="? 3DS Homebrew:2" \
+	--button="? smashbroshax:3"))
 
 ret=$?
 
 device=${array[0]}
 replay=${array[1]}
 
-if [[ ${ret} == 0 ]]; then
-	x-terminal-emulator -e /bin/bash -c \
-	"sudo ifconfig ${device} down && \
-	sudo iwconfig ${device} mode monitor && \
-	sudo ifconfig ${device} up && \
-	yes | sudo ${AIREPLAY} \
-		--interactive \
-		-r ${basedir}/pcap/${replay} \
-		-h 59:ee:3f:2a:37:e0 \
-		-x 20 \
-		${device}"
-else
-	echo -e "\n  cancelled by user \n"
-	exit 1
-fi
+case ${ret} in
+
+	0 )
+		x-terminal-emulator -e /bin/bash -c \
+		"sudo ifconfig ${device} down && \
+		sudo iwconfig ${device} mode monitor && \
+		sudo ifconfig ${device} up && \
+		yes | sudo ${AIREPLAY} \
+			--interactive \
+			-r ${basedir}/pcap/${replay} \
+			-h 59:ee:3f:2a:37:e0 \
+			-x 20 \
+			${device}"
+	;;
+
+	2 )
+		xdg-open "https://smealum.github.io/3ds/"
+	;;
+
+	3 )
+		xdg-open "https://github.com/yellows8/3ds_smashbroshax"
+	;;
+
+	1 )
+		echo -e "\n  cancelled by user \n"
+		exit 1
+esac
