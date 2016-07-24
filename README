@@ -1,0 +1,18 @@
+smashbroshaxer
+================
+
+simple script that aids in executing smashbroshax under Linux.
+
+Requirements:
+* Linux (x86/x86_64)
+* Gtk+ 3
+* sudo
+
+Usage:
+* run script in terminal
+* select wifi device
+* select game version
+* press hax
+* [if requested] enter your password in terminal
+* in game go to Smash > Group
+* ... profit?
