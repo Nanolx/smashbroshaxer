@@ -18,6 +18,8 @@ hax_my_smash () {
 	xterm -e /bin/bash -c \
 		"printf \">> Enter password to access WiFi device:
 
+>> press Ctrl+C once HBL started to stop this script!
+
 \" && \
 		sudo ifconfig ${device} down && \
 		sudo iwconfig ${device} mode monitor && \
