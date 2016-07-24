@@ -53,11 +53,11 @@ interactive_mode () {
 	pcaps="${pcaps%"${pcaps##*[!,]}"}"
 
 	array=($(${YAD} \
-		--title="smashbroshax Helper" \
+		--title="smashbroshaxer ${version}" \
 		--form \
 		--item-separator=, \
 		--separator=" " \
-		--field="		smashbroshax Helper will send data to your 3DS in order for
+		--field="		smashbroshaxer will send data to your 3DS in order for
 
 				»Super Smash Bros for 3DS«
 
