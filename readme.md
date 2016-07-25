@@ -5,6 +5,10 @@ simple script that aids in executing smashbroshax under Linux.
 
 Requirements:
 ================
+* Super Smash Bros
+  * Retail up to 1.0.8 (Retail 1.1.0 does not work)
+  * Digital up to 1.1.2
+  * Demo not supported (anymore)
 * Linux (x86/x86_64)
 * Gtk+ 3
 * sudo
