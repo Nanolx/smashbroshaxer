@@ -3,9 +3,15 @@ smashbroshaxer
 
 simple script that aids in executing smashbroshax under Linux.
 
+smashbroshax allows you to run Homebrew on your Nintendo 3DS.
+
+for further information efer to:
+* [smashbroshax page](https://github.com/yellows8/3ds_smashbroshax)
+* [3DS Homebrew start](https://smealum.github.io/3ds/)
+
 Requirements:
 ================
-* Super Smash Bros
+* Super Smash Bros for 3DS
   * Retail up to 1.0.8 (Retail 1.1.0 does not work)
   * Digital up to 1.1.2
   * Demo not supported (anymore)

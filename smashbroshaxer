@@ -83,7 +83,8 @@ interactive_mode () {
 		(if you got a newer version, (temporarily) uninstall the update data).
 
 		Note: retail cardtriges version 1.1.0 (with amiibo logo) are known to
-		not be supported by smashbroshax.:LBL" " " \
+		not be supported by smashbroshax.
+:LBL" " " \
 		--field="1. Select WiFi Device to use:CB" "${wireless}" \
 		--field="2. Select your Game version:CB" "${pcaps}" \
 		--field="
@@ -121,7 +122,7 @@ smashbroshaxer version ${version} (${reldate})
 
 usage:
 	smashbroshaxer			| interactive (UI) mode
-	smashbrosaxer <wifi> <pcap>	| non-interactive mode
+	smashbroshaxer <wifi> <pcap>	| non-interactive mode
 "
 	;;
 
