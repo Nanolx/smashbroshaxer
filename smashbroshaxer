@@ -80,7 +80,10 @@ interactive_mode () {
 					»Super Smash Bros for 3DS«
 
 		to start the Homebrew Launcher. Game version up to 1.1.2 supported;
-		(if you got a newer version, (temporarily) uninstall the update data).:LBL" " " \
+		(if you got a newer version, (temporarily) uninstall the update data).
+
+		Note: retail cardtriges version 1.1.0 (with amiibo logo) are known to
+		not be supported by smashbroshax.:LBL" " " \
 		--field="1. Select WiFi Device to use:CB" "${wireless}" \
 		--field="2. Select your Game version:CB" "${pcaps}" \
 		--field="
