@@ -40,6 +40,10 @@ Usage (non-interactive mode):
 ChangeLog:
 ================
 
+3.0.1 (20160725):
+* improved readme
+* improved UI strings
+
 3.0 (20160724):
 * switch to channel 6 (should do stuff faster)
 * reset wifi interface after work is done (brings back interwebs)

@@ -3,8 +3,8 @@
 basedir=$(readlink -m "${BASH_SOURCE[0]}")
 basedir=$(dirname ${basedir})
 
-reldate="2016/07/24"
-version="3.0"
+reldate="2016/07/25"
+version="3.0.1"
 
 if [[ $(uname -m) == "x86_64" ]]; then
 	YAD=${basedir}/bin/yad.64
